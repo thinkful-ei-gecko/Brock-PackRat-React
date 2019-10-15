@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: rgb(66, 66, 66);
+    color: white;
+}
+
+.LoginForm, .RegistrationForm{
+    background:rgb(37, 37, 37);
+    width:35%;
+    border-radius:6px;
+    margin: 20px auto;
+    padding:30px;
+    border: #a8a8a8 4px solid; 
+    text-align: center; 
+}
+
+input[type=text], input[type=user_name], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 5px 22px 0;
+    display: inline-block;
+    border: 1px solid black;
+    background: #f1f1f1;
+    font-size: 1em;
+}
+
+button[type=submit] {
+    background: rgb(157, 121, 255);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    margin-left: 10px;
+    font-size: 2em;
+}
+
+h2 {
+    text-align: center;
+    font-size: 3em;
+    margin: 0 auto;
+    padding-top: 10px;
+}

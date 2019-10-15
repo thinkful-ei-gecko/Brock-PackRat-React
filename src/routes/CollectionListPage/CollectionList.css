@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background-color: rgb(66, 66, 66);
+    color: white;
+}
+
+.ItemListNav__list {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 0px;
+    margin: 30px 0;
+    flex-direction: column;
+    text-align: center;
+}
+
+.ItemListNav__collection-link{
+    background:rgb(37, 37, 37);
+    border-radius:6px;
+    margin: 25px auto;
+    padding:10px;
+    border: #a8a8a8 2px solid; 
+    text-align: center; 
+    color: white;
+}
+li {
+    list-style-type: none;
+    height: 60px;
+}
+
+.ItemListNav__button-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.itemListNav__add-collection-button {
+    background: rgb(157, 121, 255);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    margin: 0 auto;
+    font-size: 1em;
+}
+
+a {
+    text-decoration: none;
+}

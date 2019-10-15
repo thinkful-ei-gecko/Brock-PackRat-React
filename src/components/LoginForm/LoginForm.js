@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TokenService from '../../services/token-service';
 import AuthApiService from '../../services/auth-api-service';
 import { Button, Input } from "../Utils/Utils";
+import './LoginFormcss.css'
 
 export default class LoginForm extends Component {
   static defaultProps = {
@@ -38,7 +39,7 @@ export default class LoginForm extends Component {
         <div role="alert">{error && <p className="red">{error}</p>}</div>
         <div className="user_name">
           <label htmlFor="LoginForm__username">User name</label>
-          <Input required name="username" id="LoginForm__username"></Input>
+          <Input required type="user_name" name="username" id="LoginForm__username"></Input>
         </div>
         <div className="password">
           <label htmlFor="LoginForm__password">Password</label>
