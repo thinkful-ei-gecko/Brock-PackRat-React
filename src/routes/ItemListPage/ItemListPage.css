@@ -1,0 +1,32 @@
+.ItemInCollection {
+    background:rgb(37, 37, 37);
+    border-radius:6px;
+    margin: 25px auto;
+    padding:10px;
+    border: #a8a8a8 2px solid; 
+    text-align: center; 
+    color: white;
+    height: auto;
+}
+
+.ItemListMain {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+.ItemListMain__button-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.ItemListMain__add-item-button {
+    background: rgb(157, 121, 255);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    margin: 0 auto;
+    font-size: 1em;
+    text-align: center;
+}
+

@@ -14,8 +14,8 @@ const CollectionApiService = {
           : res.json()
       )
   },
-  getCollection(collectionId) {
-    return fetch(`${config.API_ENDPOINT}/collections/${collectionId}`, {
+  getCollection(collection_id) {
+    return fetch(`${config.API_ENDPOINT}/collections/${collection_id}`, {
       headers: {
         'Authorization': `bearer ${TokenService.getAuthToken()}`,
       },
@@ -26,8 +26,8 @@ const CollectionApiService = {
           : res.json()
       )
   },
-  getCollectionItems(collectionId) {
-    return fetch(`${config.API_ENDPOINT}/collections/${collectionId}/items`, {
+  getCollectionItems(collection_id) {
+    return fetch(`${config.API_ENDPOINT}/collections/${collection_id}/items`, {
       headers: {
         'Authorization': `bearer ${TokenService.getAuthToken()}`,
       },

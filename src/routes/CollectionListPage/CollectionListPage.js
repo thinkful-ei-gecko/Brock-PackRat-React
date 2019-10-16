@@ -32,7 +32,7 @@ export default class NoteListNav extends React.Component {
     })
   } 
   render() {
-    console.dir(this.state.collections)
+    //console.dir(this.state.collections)
 
     return (
       <div className='ItemListNav'>
