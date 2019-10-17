@@ -37,14 +37,14 @@ export default class ItemPage extends React.Component {
           type="button"
           onClick={this.handleClickDelete}
         >
-          remove
+          Delete
         </button>
         <button
           className="Item__edit"
           type="button"
           onClick={this.handleClickEdit}
         >
-          edit
+          Edit
         </button>
       </div>
     );

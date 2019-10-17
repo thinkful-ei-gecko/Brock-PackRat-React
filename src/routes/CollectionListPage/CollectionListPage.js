@@ -52,14 +52,14 @@ export default class NoteListNav extends React.Component {
           )}
         </ul>
         <div className='ItemListNav__button-wrapper'>
-          <button
+          <Link
             tag={Link}
             to='/add-collection'
             type='button'
             className='itemListNav__add-collection-button'
           >
             + Collection
-          </button>
+          </Link>
         </div>
       </div>
     )

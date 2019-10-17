@@ -6,19 +6,29 @@ import LoginPage from './routes/LoginPage/LoginPage';
 import RegistrationPage from './routes/RegistrationPage/RegistrationPage';
 import './App.css';
 import ItemListPage from './routes/ItemListPage/ItemListPage';
-import ItemPage from './routes/ItemPage/ItemPage'
+import ItemPage from './routes/ItemPage/ItemPage';
+import AddCollection from './components/AddCollection/AddCollection';
+import AddItem from './components/AddItem/AddItem';
+import TokenService from './services/token-service';
 
 class App extends Component {
   state = {
-    collections: [],
-    items: [],
+    user: TokenService.getAuthToken(),
+  }
+
+  changeUser = user => {
+    this.setState({
+      user: user
+    })
   }
 
   render() {
     return (
       <div className="App">
         <header className="PackRat-Header">
-          <Header />
+          <Header 
+          user={this.state.user}
+          changeUser={this.changeUser} />
         </header>
         <main className="PackRat-Main">
           <Switch>
@@ -39,8 +49,10 @@ class App extends Component {
                 />
             ))}
             <Route exact path={'/'} component={CollectionListPage}/> 
-            <Route exact path={'/login'} component={LoginPage}/>
+            <Route exact path={'/login'} render={(props) => <LoginPage {...props} changeUser={this.changeUser}/>}/>
             <Route exact path={'/register'} component={RegistrationPage}/>
+            <Route exact path={'/add-collection'} component={AddCollection} />
+            <Route exact path={'/add-item'} component={AddItem} />
           </Switch>
         </main>
       </div>

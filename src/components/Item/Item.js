@@ -1,54 +1,57 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import config from '../../config'
+import React from "react";
+import { Link } from "react-router-dom";
+import config from "../../config";
+import TokenService from "../../services/token-service";
 
 export default class Item extends React.Component {
-  static defaultProps ={
-    onDeleteNote: () => {},
-  }
+  static defaultProps = {
+    onDeleteItem: () => {}
+  };
+
 
   handleClickDelete = e => {
-    e.preventDefault()
-    const itemId = this.props.id
+    e.preventDefault();
+    const itemId = this.props.id;
+    console.log(this.props)
 
     fetch(`${config.API_ENDPOINT}/items/${itemId}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'content-type': 'application/json'
-      },
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${TokenService.getAuthToken()}`
+      }
     })
       .then(res => {
-        if (!res.ok)
-          return res.json().then(e => Promise.reject(e))
+        if (!res.ok) return res.json().then(e => Promise.reject(e));
         return;
       })
       .then(() => {
-        this.context.deleteItem(itemId)
+          console.log('made it here')
+        // this.handleDeleteItem(itemId);
         // allow parent to perform extra behaviour
-        this.props.onDeleteItem(itemId)
+        this.props.onDeleteItem(itemId);
       })
       .catch(error => {
-        console.error({ error })
-      })
-  }
+        console.error({ error });
+      });
+  };
 
   render() {
-    const { name, id } = this.props
+    const { name, id } = this.props;
+    console.dir(this.props.id);
     return (
-      <div className='Item'>
-        <h2 className='Item__title'>
-          <Link to={`/item/${id}`}>
-            {name}
-          </Link>
+      <div className="Item">
+        <h2 className="Item__title">
+          <Link to={`/item/${id}`}>{name}</Link>
         </h2>
         <button
-          className='Item__delete'
-          type='button'
+          className="Item__delete"
+          type="button"
           onClick={this.handleClickDelete}
         >
           remove
         </button>
       </div>
-    )
+    );
   }
 }
