@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import config from "../../config";
 import TokenService from "../../services/token-service";
+import '../Item/ItemCss.css';
 
 export default class Item extends React.Component {
   static defaultProps = {
@@ -26,7 +27,6 @@ export default class Item extends React.Component {
         return;
       })
       .then(() => {
-          console.log('made it here')
         // this.handleDeleteItem(itemId);
         // allow parent to perform extra behaviour
         this.props.onDeleteItem(itemId);
@@ -38,7 +38,7 @@ export default class Item extends React.Component {
 
   render() {
     const { name, id } = this.props;
-    console.dir(this.props.id);
+    console.dir(this.props.image_url);
     return (
       <div className="Item">
         <h2 className="Item__title">

@@ -4,6 +4,7 @@ import { getItemsForCollection } from "../../items-helpers";
 import config from "../../config";
 import Item from "../../components/Item/Item";
 import "../ItemListPage/ItemListPage.css";
+import Img from "react-image";
 
 export default class ItemListPage extends React.Component {
   static defaultProps = {
@@ -12,14 +13,22 @@ export default class ItemListPage extends React.Component {
     }
   };
 
-  state = {
-    collections: [],
-    items: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      collections: [],
+      items: [],
+      filtered: []
+    };
+  }
+
+  updateSearch(event) {
+    this.setState({ filtered: event.target.value.substr(0, 20) });
+  }
 
   onDeleteItem = itemId => {
     this.setState({
-        items: this.state.items.filter(item => item.id !== itemId)
+      items: this.state.items.filter(item => item.id !== itemId)
     });
   };
 
@@ -50,17 +59,31 @@ export default class ItemListPage extends React.Component {
     const itemsForCollection = getItemsForCollection(
       this.state.items,
       collection_id
-    );
+    ).filter(item => {
+      return item.title.toLowerCase().indexOf(this.state.filtered) !== -1;
+    });
     return (
       <section className="ItemListMain">
+        <div className="searchContainer">
+          <input
+            type="text"
+            className="input"
+            placeholder="Search..."
+            onChange={this.updateSearch.bind(this)}
+          />
+          <ul></ul>
+        </div>
+
         <ul>
           {itemsForCollection.map(item => (
             <li className="ItemInCollection" key={item.id}>
+              <Img src={item.image_url} height="50px" width="50px" />
               <Item
                 id={item.id}
                 name={item.title}
                 collection_id={item.collection_id}
                 onDeleteItem={this.onDeleteItem}
+                image_url={item.image_url}
               />
             </li>
           ))}

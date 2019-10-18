@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import config from "../../config";
-import TokenService from '../../services/token-service';
+import TokenService from "../../services/token-service";
 
 class AddItem extends Component {
-    static defaultProps = {
-        match: {
-          params: {}
-        }
+  static defaultProps = {
+    match: {
+      params: {}
     }
+  };
 
   state = {
     items: [],
@@ -25,6 +25,10 @@ class AddItem extends Component {
       value: "",
       touched: false
     },
+    image_url: {
+      value: "",
+      touched: false
+    }
   };
 
   handleChangeItemTitle = e => {
@@ -39,49 +43,48 @@ class AddItem extends Component {
     this.setState({ year_released: { value: Number(e.target.value), touched: true } });
   };
 
+  handleChangeItemImage = e => {
+    this.setState({ image_url: { value: e.target.value, touched: true } });
+  };
+
   handleChangeCollectionId = e => {
     this.setState({ collection_id: { value: Number(e.target.value), touched: true } });
   };
 
-  handleNewField = e => {
-      e.preventDefault();
-  }
-
   handleSubmit = e => {
     e.preventDefault();
-    console.log('submitted: ')
     const newItem = {
       title: this.state.title.value,
       info: this.state.info.value,
       year_released: this.state.year_released.value,
+      image_url: this.state.image_url.value,
       collection_id: parseInt(this.props.location.state.collection_id)
-    }
+    };
 
     fetch(`${config.API_ENDPOINT}/items`, {
-        method: 'POST',
-        body: JSON.stringify(newItem),
-        headers: {
-            'content-type': 'application/json',
-            'Authorization': TokenService.getAuthToken()
-        }
+      method: "POST",
+      body: JSON.stringify(newItem),
+      headers: {
+        "content-type": "application/json",
+        Authorization: TokenService.getAuthToken()
+      }
     })
-    .then(res => {
-        if (!res.ok)
-        return res.json().then(error => Promise.reject(error))
+      .then(res => {
+        if (!res.ok) return res.json().then(error => Promise.reject(error));
         return res.json();
-    })
-    .then((resData) => {
+      })
+      .then(resData => {
         this.setState({
-            items: resData
-        })
-    })
-    .then(() => {
-      this.props.history.goBack();
-    })
-    .catch(error => {
-      console.error(error);
-      this.setState({ error });
-    });
+          items: resData
+        });
+      })
+      .then(() => {
+        this.props.history.goBack();
+      })
+      .catch(error => {
+        console.error(error);
+        this.setState({ error });
+      });
   };
 
   validateTitle() {
@@ -105,6 +108,13 @@ class AddItem extends Component {
     }
   }
 
+  validateImage() {
+    const image_url = this.state.image_url.value;
+    if (image_url.length === 0) {
+      return "Image url is required";
+    }
+  }
+
   validateCollectionId() {
     const collection = this.state.collection_id.value;
     if (!collection) {
@@ -114,7 +124,7 @@ class AddItem extends Component {
 
   render() {
     const { collection_id } = this.props.location.state;
-    console.dir(collection_id)
+    console.dir(collection_id);
     return (
       <section className="AdditemForm">
         <form>
@@ -133,9 +143,24 @@ class AddItem extends Component {
           )}
           <br />
           <br />
+          <label htmlFor="additemimage" className="add-item-label">
+            Image URL
+          </label>
+          <input
+            type="text"
+            id="additemimage"
+            name="additemimage"
+            onChange={this.handleChangeItemImage}
+          />
+          {this.state.title.touched && (
+            <div className="error">{this.validateImage()}</div>
+          )}
+          <br />
+          <br />
           <label htmlFor="additemyearreleased" className="add-item-label">
             Year Released
-          </label>< br/>
+          </label>
+          <br />
           <input
             type="number"
             id="additemyearreleased"
@@ -147,27 +172,6 @@ class AddItem extends Component {
           )}
           <br />
           <br />
-          {/* <label htmlFor="collection_id">Collection ID</label>
-          <br />
-          <select
-            name="collection_id"
-            id="collection_id"
-            onChange={this.handleChangeItemCollection}
-          >
-            <option value={""}>Select Collection</option>
-            {collections.map((collection, index) => {
-              return (
-                <option value={collection.id} key={index}>
-                  {collection.title}
-                </option>
-              );
-            })}
-          </select> 
-          <br />
-          <br />
-          {this.state.collection_id.touched && (
-            <div className="error">{this.validateCollectionId()}</div>
-          )} */}
           <label htmlFor="itemInfo">Info</label>
           <br />
           <textarea
@@ -182,18 +186,10 @@ class AddItem extends Component {
           <br />
           <button
             type="submit"
-            onSubmit={this.handleNewField}
-            className="newfieldbutton"
-          >
-            Add New Field
-          </button>
-          <button
-            type="submit"
             onClick={this.handleSubmit}
             disabled={
               this.validateTitle() ||
               this.validateYearReleased() ||
-            //   this.validateCollectionId() ||
               this.validateInfo()
             }
             className="button"

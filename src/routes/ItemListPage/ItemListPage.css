@@ -7,6 +7,17 @@
     text-align: center; 
     color: white;
     height: auto;
+    width: 200px;
+}
+.ItemInCollection a:visited {
+    color: rgb(168, 168, 168);
+}
+
+.searchContainer{
+    width: 25%;
+    margin: 0 auto;
+    font-size: 1em;
+    margin-top: 25px;
 }
 
 .ItemListMain {
