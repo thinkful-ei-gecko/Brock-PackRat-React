@@ -47,9 +47,9 @@ class AddItem extends Component {
     this.setState({ image_url: { value: e.target.value, touched: true } });
   };
 
-  handleChangeCollectionId = e => {
+  /* handleChangeCollectionId = e => {
     this.setState({ collection_id: { value: Number(e.target.value), touched: true } });
-  };
+  }; */
 
   handleSubmit = e => {
     e.preventDefault();
@@ -66,7 +66,7 @@ class AddItem extends Component {
       body: JSON.stringify(newItem),
       headers: {
         "content-type": "application/json",
-        Authorization: TokenService.getAuthToken()
+        'Authorization': `Bearer ${TokenService.getAuthToken()}`
       }
     })
       .then(res => {

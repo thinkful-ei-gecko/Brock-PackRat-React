@@ -2,15 +2,20 @@
     background:rgb(37, 37, 37);
     border-radius:6px;
     margin: 25px auto;
-    padding:10px;
     border: #a8a8a8 2px solid; 
     text-align: center; 
     color: white;
-    height: auto;
-    width: 200px;
+    height: 225px;
+    width: 150px;
 }
 .ItemInCollection a:visited {
     color: rgb(168, 168, 168);
+}
+
+.ItemInCollection img {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+
 }
 
 .searchContainer{

@@ -1,20 +1,22 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import "./Header.css";
 import TokenService from "../../services/token-service";
 
-export default class Header extends Component {
+class Header extends Component {
   handleLogoutClick = ev => {
     ev.preventDefault();
     this.props.changeUser(null);
     TokenService.clearAuthToken();
+    this.props.history.push('/login');
   };
 
   renderLogoutLink() {
     return (
       <div className="Header__logged-in">
-        <Link onClick={this.handleLogoutClick} to="/">
-          Logout
+        <Link to="/login">
+          <button className="Header__logged-in" onClick={this.handleLogoutClick}>Logout
+          </button>
         </Link>
       </div>
     );
@@ -43,3 +45,5 @@ export default class Header extends Component {
     );
   }
 }
+
+export default withRouter(Header);

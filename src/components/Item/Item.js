@@ -9,9 +9,9 @@ export default class Item extends React.Component {
     onDeleteItem: () => {}
   };
 
-
   handleClickDelete = e => {
     e.preventDefault();
+
     const itemId = this.props.id;
     console.log(this.props)
 
@@ -27,8 +27,6 @@ export default class Item extends React.Component {
         return;
       })
       .then(() => {
-        // this.handleDeleteItem(itemId);
-        // allow parent to perform extra behaviour
         this.props.onDeleteItem(itemId);
       })
       .catch(error => {
@@ -38,19 +36,20 @@ export default class Item extends React.Component {
 
   render() {
     const { name, id } = this.props;
-    console.dir(this.props.image_url);
     return (
       <div className="Item">
         <h2 className="Item__title">
           <Link to={`/item/${id}`}>{name}</Link>
         </h2>
-        <button
-          className="Item__delete"
-          type="button"
-          onClick={this.handleClickDelete}
-        >
-          remove
-        </button>
+        <div className="ItemDeleteButtonWrapper">
+          <button
+            className="ItemDeleteButton"
+            type="button"
+            onClick={e => window.confirm('Are you sure you wish to delete this item?') && this.handleClickDelete(e) }
+          >
+            Delete Item
+          </button>
+        </div>
       </div>
     );
   }

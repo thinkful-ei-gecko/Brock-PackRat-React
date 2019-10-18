@@ -16,7 +16,7 @@ export default class LoginForm extends Component {
     this.setState({ error: null });
     const { username, password } = ev.target;
 
-    console.log(username.value, password.value);
+    //console.log(username.value, password.value);
     AuthApiService.postLogin({
       username: username.value,
       password: password.value
@@ -28,7 +28,7 @@ export default class LoginForm extends Component {
         this.props.onLoginSuccess();
       })
       .catch(res => {
-        //this.setState({ error: res.error });
+        this.setState({ error: res.error });
       });
   };
 

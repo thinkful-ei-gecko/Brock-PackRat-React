@@ -5,6 +5,7 @@ import config from "../../config";
 import Item from "../../components/Item/Item";
 import "../ItemListPage/ItemListPage.css";
 import Img from "react-image";
+import TokenService from '../../services/token-service';
 
 export default class ItemListPage extends React.Component {
   static defaultProps = {
@@ -26,20 +27,23 @@ export default class ItemListPage extends React.Component {
     this.setState({ filtered: event.target.value.substr(0, 20) });
   }
 
-  onDeleteItem = itemId => {
+  onDeleteCollection = collection_id => {
     this.setState({
-      items: this.state.items.filter(item => item.id !== itemId)
+      collections: this.state.collections.filter(collection => collection.id !== collection_id)
     });
   };
 
   componentDidMount() {
-    //console.log('mount')
     Promise.all([
-      fetch(`${config.API_ENDPOINT}/collections`),
+      fetch(`${config.API_ENDPOINT}/collections`, {
+        headers: {
+        "content-type": "application/json",
+        'Authorization': `Bearer ${TokenService.getAuthToken()}`
+      }
+      }),
       fetch(`${config.API_ENDPOINT}/items`)
     ])
       .then(([collectionsRes, itemsRes]) => {
-        //console.dir(collectionsRes)
         if (!collectionsRes.ok)
           return collectionsRes.json().then(e => Promise.reject(e));
         if (!itemsRes.ok) return itemsRes.json().then(e => Promise.reject(e));
@@ -53,9 +57,37 @@ export default class ItemListPage extends React.Component {
       });
   }
 
+  handleDeleteCollection = e => {
+    e.preventDefault();
+
+    const collection_id = this.props.match.params.collection_id;
+    console.log(this.props)
+
+    fetch(`${config.API_ENDPOINT}/collections/${collection_id}`, {
+      method: "DELETE",
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': `Bearer ${TokenService.getAuthToken()}`
+      }
+    })
+      .then(res => {
+        if (!res.ok) return res.json().then(e => Promise.reject(e));
+        return;
+      })
+      .then(() => {
+        this.onDeleteCollection(collection_id);
+      })
+      .then(() => {
+        this.props.history.goBack();
+      })
+      .catch(error => {
+        console.error({ error });
+      });
+  };
+
   render() {
+    console.log(this.props.match.params.collection_id)
     const { collection_id } = this.props.match.params;
-    //console.log( collection_id )
     const itemsForCollection = getItemsForCollection(
       this.state.items,
       collection_id
@@ -73,11 +105,19 @@ export default class ItemListPage extends React.Component {
           />
           <ul></ul>
         </div>
+        <div className="ItemListMain__button-container">
+          <button
+            onClick={e => window.confirm('Are you sure you wish to delete this Collection and all of its contents?') && this.handleDeleteCollection(e) }
+            type="button" 
+            className="ItemListMain__add-item-button">
+            Delete Entire Collection
+          </button>
+        </div>
 
         <ul>
           {itemsForCollection.map(item => (
             <li className="ItemInCollection" key={item.id}>
-              <Img src={item.image_url} height="50px" width="50px" />
+              <Img src={item.image_url} height="146px" width="146px" />
               <Item
                 id={item.id}
                 name={item.title}

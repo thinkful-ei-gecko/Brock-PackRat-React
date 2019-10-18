@@ -4,3 +4,18 @@
 
 .Item {
 }
+
+.ItemDeleteButtonWrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.ItemDeleteButton {
+    background: rgb(157, 121, 255);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    margin: 0 auto;
+    font-size: 1em;
+    width:100%;
+}

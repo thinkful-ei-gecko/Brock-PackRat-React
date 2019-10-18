@@ -6,6 +6,7 @@
     "create-react-app": "^3.2.0",
     "express-flash-notification": "^0.5.0",
     "react": "^16.10.2",
+    "react-confirm-alert": "^2.4.1",
     "react-dom": "^16.10.2",
     "react-image": "^2.2.1",
     "react-router-dom": "^5.1.2",

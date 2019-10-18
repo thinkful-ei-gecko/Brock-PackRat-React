@@ -1,6 +1,8 @@
 import React from "react";
 import config from "../../config";
 import Img from 'react-image';
+import { Link } from 'react-router-dom';
+import TokenService from '../../services/token-service';
 
 export default class ItemPage extends React.Component {
   static defaultProps = {};
@@ -13,7 +15,12 @@ export default class ItemPage extends React.Component {
     console.log(this.props.match.params);
 
     Promise.all([
-      fetch(`${config.API_ENDPOINT}/items/item/${this.props.match.params.item_id}`)
+      fetch(`${config.API_ENDPOINT}/items/item/${this.props.match.params.item_id}`, {
+        headers: {
+        "content-type": "application/json",
+        'Authorization': `Bearer ${TokenService.getAuthToken()}`
+      }
+      }),
     ])
       .then(([itemRes]) => {
         if (!itemRes.ok) return itemRes.json().then(e => Promise.reject(e));
@@ -35,20 +42,18 @@ export default class ItemPage extends React.Component {
         <Img src={this.state.item.image_url} height="100px" width="auto"/>
         <p>Info: {this.state.item.info}</p>
         <p>Year Released: {this.state.item.year_released}</p>
-        <button
-          className="Item__delete"
-          type="button"
-          onClick={this.handleClickDelete}
-        >
-          Delete
-        </button>
-        <button
+        <Link
+          to={{
+            pathname: "/update",
+            state: { item: this.state.item }
+          }}
           className="Item__edit"
           type="button"
-          onClick={this.handleClickEdit}
+          item={this.state.item}
         >
-          Edit
-        </button>
+          <button>Edit Item
+          </button>
+        </Link>
       </div>
     );
   }
