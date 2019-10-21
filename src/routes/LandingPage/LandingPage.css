@@ -1,0 +1,14 @@
+.LandingPageContainer {
+    text-align: center;
+}
+
+.LandingPageLink {
+    border: 1px solid #9d79ff;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+}
+
+.LandingPageLink a:visited {
+    color: white;
+}

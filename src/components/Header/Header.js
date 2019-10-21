@@ -13,34 +13,51 @@ class Header extends Component {
 
   renderLogoutLink() {
     return (
-      <div className="Header__logged-in">
-        <Link to="/login">
-          <button className="Header__logged-in" onClick={this.handleLogoutClick}>Logout
-          </button>
-        </Link>
-      </div>
+      <section className="HeaderContainer">
+        <nav className="NavHeader">
+            <h1>
+              <Link to="/homepage">PackRat</Link>
+            </h1>
+            <span className="HeaderTaglineWide">Be the PackRat.</span>
+        </nav>
+        <div className="HeaderLoggedInContainer">
+          <Link to="/homepage">
+            <p>
+              Home
+            </p>
+          </Link>
+          <Link to="/login">
+            <button className="HeaderLogoutButton" onClick={this.handleLogoutClick}>Logout
+            </button>
+          </Link>
+        </div>
+      </section>
     );
   }
 
   renderLoginLink() {
     return (
-      <div className="Header__not-logged-in">
-        <Link to="/login">Log in</Link>
-        <Link to="/register">Register</Link>
-      </div>
+      <section className="HeaderContainer">
+        <nav className="NavHeader">
+            <h1>
+              <Link to="/">PackRat</Link>
+            </h1>
+            <span className="HeaderTaglineWide">Be the PackRat.</span>
+        </nav>
+        <div className="HeaderNotLoggedIn">
+          <Link to="/login">Log in</Link>
+          <Link to="/register">Register</Link>
+        </div>
+      </section>
     );
   }
 
   render() {
     return (
       <>
-        <nav className="Header">
-          <h1>
-            <Link to="/">PackRat</Link>
-          </h1>
-          <span className="Header__tagline--wide">Be the PackRat.</span>
+        <div className="Header">
           {this.props.user ? this.renderLogoutLink() : this.renderLoginLink()}
-        </nav>
+        </div>
       </>
     );
   }

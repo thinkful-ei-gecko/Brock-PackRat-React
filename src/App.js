@@ -11,6 +11,7 @@ import AddCollection from "./components/AddCollection/AddCollection";
 import AddItem from "./components/AddItem/AddItem";
 import TokenService from "./services/token-service";
 import UpdateItem from "./routes/UpdateItem/UpdateItem";
+import LangingPage from './routes/LandingPage/LandingPage';
 
 class App extends Component {
   state = {
@@ -37,7 +38,9 @@ class App extends Component {
             {["/item/:item_id"].map(path => (
               <Route exact key={path} path={path} component={ItemPage} />
             ))}
-            <Route exact path={"/"} component={CollectionListPage} />
+            <Route exact path={"/"} component={LangingPage} />
+            <Route exact path={"/homepage"} component={CollectionListPage} />
+
             <Route
               exact
               path={"/login"}

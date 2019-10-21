@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import config from "../../config";
 import TokenService from "../../services/token-service";
+import './AddCollection.css';
 
 class AddCollection extends Component {
   static defaultProps = {
@@ -20,16 +21,15 @@ class AddCollection extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const newCollection = {
-      title: this.state.title,
+      title: this.state.title
     };
 
-    //console.log(this.state);
     fetch(`${config.API_ENDPOINT}/collections`, {
       method: "POST",
       body: JSON.stringify(newCollection),
       headers: {
         "content-type": "application/json",
-        'Authorization': `Bearer ${TokenService.getAuthToken()}`
+        Authorization: `Bearer ${TokenService.getAuthToken()}`
       }
     })
       .then(res => {
@@ -50,22 +50,23 @@ class AddCollection extends Component {
       });
   };
   render() {
-    //console.log(this.props)
     return (
       <section className="AddCollectionForm">
         <form onSubmit={this.handleSubmit}>
-          <label htmlFor="addfcollectiontitle" className="add-collection-label">
+        <h2 className="CollectionTitle">Add Collection</h2>< br/>
+          <label htmlFor="addfcollectiontitle" className="AddCollectionLabel">
             {" "}
-            Add Collection
+            Title
           </label>
           <input
             type="text"
             id="addcollectionname"
             title="addcollectiontitle"
             onChange={this.handleChangeCollectionTitle}
+            placeholder="Example Collection"
           ></input>
-          <button type="submit" className="button">
-            Add Collection
+          <button type="submit" className="CreateNewCollectionButton">
+            Create New Collection
           </button>
         </form>
       </section>

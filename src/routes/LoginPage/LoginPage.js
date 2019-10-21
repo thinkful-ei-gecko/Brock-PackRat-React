@@ -10,20 +10,18 @@ export default class LoginPage extends Component {
     }
   };
 
-
-
   handleLoginSuccess = () => {
     const { location, history } = this.props;
-    const destination = (location.state || {}).from || "/";
-    this.props.changeUser(TokenService.getAuthToken())
+    const destination = (location.state || {}).from || "/homepage";
+    this.props.changeUser(TokenService.getAuthToken());
     history.push(destination);
-	};
-	
+  };
+
   render() {
     return (
       <div>
         <h2>Log In</h2>
-        <LoginForm onLoginSuccess={this.handleLoginSuccess}/>
+        <LoginForm onLoginSuccess={this.handleLoginSuccess} />
       </div>
     );
   }

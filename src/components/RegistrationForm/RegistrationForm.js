@@ -1,86 +1,82 @@
-import React, { Component } from 'react';
-import { Button, Input, Required } from '../Utils/Utils';
-import AuthApiService from '../../services/auth-api-service';
+import React, { Component } from "react";
+import { Button, Input, Required } from "../Utils/Utils";
+import AuthApiService from "../../services/auth-api-service";
 
 export default class RegistrationForm extends Component {
   static defaultProps = {
     onRegistrationSuccess: () => {}
-  }
+  };
 
-  state = { error: null }
+  state = { error: null };
 
   handleSubmit = ev => {
-    ev.preventDefault()
-    const { username, fullname, password } = ev.target
+    ev.preventDefault();
+    const { username, fullname, password } = ev.target;
 
-    this.setState({ error: null})
+    this.setState({ error: null });
 
-    console.log('registration form submitted')
-    console.log( fullname.value , username.value , password.value )
+    //console.log("registration form submitted");
+    //console.log(fullname.value, username.value, password.value);
 
-    AuthApiService.postUser({fullname: fullname.value, username: username.value, password: password.value})
-    .then(user => {
-      username.value = ''
-      fullname.value = ''
-      password.value = ''
-      this.props.onRegistrationSuccess()
+    AuthApiService.postUser({
+      fullname: fullname.value,
+      username: username.value,
+      password: password.value
     })
-    .catch(res => {
-      this.setState({ error: res.error })
-    })
-  }
-
+      .then(user => {
+        username.value = "";
+        fullname.value = "";
+        password.value = "";
+        this.props.onRegistrationSuccess();
+      })
+      .catch(res => {
+        this.setState({ error: res.error });
+      });
+  };
 
   render() {
-    const { error } = this.state
+    const { error } = this.state;
     return (
-      <form
-        className='RegistrationForm'
-        onSubmit={this.handleSubmit}
-      >
-        <div role='alert'>
-          {error && <p className='red'>{error}</p>}
-        </div>
-        <div className='fullname'>
-          <label htmlFor='RegistrationForm__fullname'>
+      <form className="RegistrationForm" onSubmit={this.handleSubmit}>
+        <div role="alert">{error && <p className="red">{error}</p>}</div>
+        <div className="FullName">
+          <label htmlFor="RegistrationFormFullName">
             Full name <Required />
           </label>
           <Input
-            name='fullname'
-            type='text'
+            name="fullname"
+            type="text"
             placeholder="Test User"
             required
-            id='RegistrationForm__fullname'>
-          </Input>
+            id="RegistrationFormFullName"
+          ></Input>
         </div>
-        <div className='username'>
-          <label htmlFor='RegistrationForm__username'>
+        <div className="UserName">
+          <label htmlFor="RegistrationFormUserName">
             User name <Required />
           </label>
           <Input
-            name='username'
-            type='text'
+            name="username"
+            type="text"
             placeholder="testuser"
             required
-            id='RegistrationForm__username'>
-          </Input>
+            id="RegistrationFormUserName"
+          ></Input>
         </div>
-        <div className='password'>
-          <label htmlFor='RegistrationForm__password'>
+        <div className="password">
+          <label htmlFor="RegistrationFormPassword">
             Password <Required />
           </label>
           <Input
-            name='password'
-            type='password'
+            name="password"
+            type="password"
             placeholder="Testuser3!"
             required
-            id='RegistrationForm__password'>
-          </Input>
+            id="RegistrationFormPassword"
+          ></Input>
         </div>
-        <Button type='submit'>
-          Register
-        </Button>
+        <Button type="submit" className="LoginButton">Register</Button>
       </form>
-    )
+    );
   }
 }

@@ -1,21 +1,50 @@
-.Item__title {
-    font-size: 1em;
-}
-
-.Item {
+.ItemTitle {
+  font-size: 1em;
+  padding: 5px;
 }
 
 .ItemDeleteButtonWrapper {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .ItemDeleteButton {
-    background: rgb(157, 121, 255);
-    color: white;
-    padding: 5px 15px;
-    border-radius: 15px;
-    margin: 0 auto;
-    font-size: 1em;
-    width:100%;
+  background: transparent;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 15px;
+  border: 2px solid rgb(212, 0, 0);
+  margin: 0 auto;
+  font-size: 1em;
+  width: 100%;
+}
+
+.ConfirmAlert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -185px;
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 2px solid rgb(212, 0, 0);
+  border-radius: 10px;
+  color: white;
+  height: auto;
+  padding: 15px;
+  font-size: 1em;
+}
+
+.YesButton {
+  color: white;
+  border: 2px solid rgb(212, 0, 0);
+  background-color: transparent;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.NoButton {
+  color: white;
+  border: 2px solid rgb(157, 121, 255);
+  background-color: transparent;
+  border-radius: 5px;
+
 }

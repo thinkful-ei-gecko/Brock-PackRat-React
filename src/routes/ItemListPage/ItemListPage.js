@@ -5,7 +5,7 @@ import config from "../../config";
 import Item from "../../components/Item/Item";
 import "../ItemListPage/ItemListPage.css";
 import Img from "react-image";
-import TokenService from '../../services/token-service';
+import TokenService from "../../services/token-service";
 
 export default class ItemListPage extends React.Component {
   static defaultProps = {
@@ -19,7 +19,8 @@ export default class ItemListPage extends React.Component {
     this.state = {
       collections: [],
       items: [],
-      filtered: []
+      filtered: [],
+      deleteClicked: false,
     };
   }
 
@@ -29,7 +30,18 @@ export default class ItemListPage extends React.Component {
 
   onDeleteCollection = collection_id => {
     this.setState({
-      collections: this.state.collections.filter(collection => collection.id !== collection_id)
+      collections: this.state.collections.filter(
+        collection => collection.id !== collection_id
+      )
+    });
+  };
+
+  onDeleteItem = item_id => {
+    console.log(item_id)
+    this.setState({
+      items: this.state.items.filter(
+        item => item.id !== item_id
+      )
     });
   };
 
@@ -37,9 +49,9 @@ export default class ItemListPage extends React.Component {
     Promise.all([
       fetch(`${config.API_ENDPOINT}/collections`, {
         headers: {
-        "content-type": "application/json",
-        'Authorization': `Bearer ${TokenService.getAuthToken()}`
-      }
+          "content-type": "application/json",
+          Authorization: `Bearer ${TokenService.getAuthToken()}`
+        }
       }),
       fetch(`${config.API_ENDPOINT}/items`)
     ])
@@ -61,13 +73,13 @@ export default class ItemListPage extends React.Component {
     e.preventDefault();
 
     const collection_id = this.props.match.params.collection_id;
-    console.log(this.props)
+    //console.log(this.props);
 
     fetch(`${config.API_ENDPOINT}/collections/${collection_id}`, {
       method: "DELETE",
       headers: {
-        'content-type': 'application/json',
-        'Authorization': `Bearer ${TokenService.getAuthToken()}`
+        "content-type": "application/json",
+        Authorization: `Bearer ${TokenService.getAuthToken()}`
       }
     })
       .then(res => {
@@ -85,8 +97,13 @@ export default class ItemListPage extends React.Component {
       });
   };
 
+  deleteMessage() {
+    this.setState({
+      deleteClicked: !this.state.deleteClicked
+    })
+  }
+
   render() {
-    console.log(this.props.match.params.collection_id)
     const { collection_id } = this.props.match.params;
     const itemsForCollection = getItemsForCollection(
       this.state.items,
@@ -94,9 +111,10 @@ export default class ItemListPage extends React.Component {
     ).filter(item => {
       return item.title.toLowerCase().indexOf(this.state.filtered) !== -1;
     });
+    //console.log(this.props)
     return (
       <section className="ItemListMain">
-        <div className="searchContainer">
+        <div className="SearchContainer">
           <input
             type="text"
             className="input"
@@ -105,16 +123,38 @@ export default class ItemListPage extends React.Component {
           />
           <ul></ul>
         </div>
-        <div className="ItemListMain__button-container">
-          <button
-            onClick={e => window.confirm('Are you sure you wish to delete this Collection and all of its contents?') && this.handleDeleteCollection(e) }
-            type="button" 
-            className="ItemListMain__add-item-button">
-            Delete Entire Collection
-          </button>
+        {this.state.deleteClicked && 
+          <div className="ConfirmAlert">
+            <p>Are you sure you want to delete this collection??</p>
+            <button className="YesButton" onClick={e => this.handleDeleteCollection(e)}>Yes</button>
+            <button className="NoButton" onClick={this.deleteMessage.bind(this)}>No</button>
+          </div>
+        }
+        <div className="ButtonContainer">
+          <div className="ItemListMainButtonContainer">
+            <button
+              onClick={this.deleteMessage.bind(this)}
+              type="button"
+              className="DeleteCollectionButton"
+            >
+              Delete Entire Collection
+            </button>
+          </div>
+          <div className="ItemListMainButtonContainer">
+            <Link
+              tag={Link}
+              to={{
+                pathname: "/add-item",
+                state: { collection_id: collection_id }
+              }}
+              type="button"
+              className="ItemListMainAddItemButton"
+            >
+              Add Item
+            </Link>
+          </div>
         </div>
-
-        <ul>
+        <ul className="ItemsListContainer">
           {itemsForCollection.map(item => (
             <li className="ItemInCollection" key={item.id}>
               <Img src={item.image_url} height="146px" width="146px" />
@@ -128,19 +168,6 @@ export default class ItemListPage extends React.Component {
             </li>
           ))}
         </ul>
-        <div className="ItemListMain__button-container">
-          <Link
-            tag={Link}
-            to={{
-              pathname: "/add-item",
-              state: { collection_id: collection_id }
-            }}
-            type="button"
-            className="ItemListMain__add-item-button"
-          >
-            Add Item
-          </Link>
-        </div>
       </section>
     );
   }

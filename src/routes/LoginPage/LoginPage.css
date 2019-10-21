@@ -1,17 +1,17 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 body {
-    background-color: rgb(66, 66, 66);
-    color: white;
+  background-color: rgb(66, 66, 66);
+  color: white;
 }
 
-.LoginForm{
-    background:rgb(37, 37, 37);
-    width:35%;
-    border-radius:6px;
-    margin: 100px auto;
-    padding:30px;
-    border: #a8a8a8 4px solid; 
-    text-align: center; 
+.LoginForm {
+  background: rgb(37, 37, 37);
+  width: 35%;
+  border-radius: 6px;
+  margin: 100px auto;
+  padding: 30px;
+  border: #a8a8a8 4px solid;
+  text-align: center;
 }

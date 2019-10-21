@@ -1,48 +1,90 @@
 .ItemInCollection {
-    background:rgb(37, 37, 37);
-    border-radius:6px;
-    margin: 25px auto;
-    border: #a8a8a8 2px solid; 
-    text-align: center; 
-    color: white;
-    height: 225px;
-    width: 150px;
+  background: rgb(37, 37, 37);
+  border-radius: 6px;
+  margin: 25px;
+  border: 1px solid rgb(157, 121, 255);
+  text-align: center;
+  color: white;
+  height: auto;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
 .ItemInCollection a:visited {
-    color: rgb(168, 168, 168);
+  color: rgb(168, 168, 168);
+}
+
+.ItemInCollection a {
+  color: rgb(255, 254, 254);
 }
 
 .ItemInCollection img {
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
 
-.searchContainer{
-    width: 25%;
-    margin: 0 auto;
-    font-size: 1em;
-    margin-top: 25px;
+.SearchContainer {
+  width: 25%;
+  margin: 0 auto;
+  font-size: 1em;
+  margin-top: 25px;
+}
+
+.ButtonContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: row-reverse;
 }
 
 .ItemListMain {
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: column;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
 }
 
-.ItemListMain__button-container {
-    display: flex;
-    justify-content: space-evenly;
+.ItemsListContainer {
+  display: flex;
+  flex-wrap: wrap ;
+  padding-left: 0px;
+  margin: 0 25px;
+  justify-content: center;
 }
 
-.ItemListMain__add-item-button {
-    background: rgb(157, 121, 255);
-    color: white;
-    padding: 5px 15px;
-    border-radius: 15px;
-    margin: 0 auto;
-    font-size: 1em;
-    text-align: center;
+.ItemListMainButtonContainer {
+  display: flex;
+  justify-content: space-evenly;
 }
 
+.ItemListMainAddItemButton {
+  background: rgb(157, 121, 255);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 15px;
+  margin: 0 auto;
+  font-size: 1em;
+  text-align: center;
+}
+
+.DeleteCollectionButton {
+  background: transparent;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 15px;
+  border: 2px solid rgb(212, 0, 0);
+  margin: 0 auto;
+  font-size: 1em;
+  text-align: center;
+  margin-left: 25px;
+}
+
+@media screen and (max-width: 490px) {
+  .SearchContainer {
+    width: 97%;
+  }
+
+  .ItemInCollection {
+    margin: 10px auto;
+  }
+}

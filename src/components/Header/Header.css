@@ -1,83 +1,99 @@
 .Header {
-    height: auto;
-    display: flex;
-    align-items: normal;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 2px solid rgb(90, 41, 146);
-  }
-  
-  .Header h1 {
-    margin: 0 auto;
-  }
-  
-  .Header a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .Header__tagline--wide {
-    opacity: 0.35;
-    margin-left: 10px;
-  }
-  
-  .Header__tagline--narrow {
-    opacity: 0.35;
-    display: block;
-    text-align: center;
-    display: none;
-    margin-top: 10px;
-  }
-  
-  .Header__not-logged-in {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: flex-end;
+  height: auto;
+  padding: 10px;
+  border-bottom: 2px solid rgb(157, 121, 255);
+}
+
+.Header h1 {
+  margin: 0 auto;
+}
+
+.HeaderContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.NavHeader {
+  display: flex;
+  flex-flow: row;
+}
+
+.Header a {
+  color: white;
+  text-decoration: none;
+}
+
+.HeaderTaglineWide {
+  opacity: 0.35;
+  margin-left: 10px;
+  margin-top: 12px;
+}
+
+.HeaderTaglineNarrow {
+  opacity: 0.35;
+  display: block;
+  text-align: center;
+  display: none;
+  margin-top: 10px;
+}
+
+.HeaderNotLoggedIn {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.HeaderLoggedInContainer {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1em;
+}
+
+.HeaderNotLoggedIn a:last-child {
+  background: rgb(157, 121, 255);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 15px;
+  margin-left: 10px;
+}
+
+.HeaderLogoutButton {
+  border: 1px solid rgb(157, 121, 255);
+  background-color: transparent;
+  color: white;
+  font-size: 1em;
+  margin-left: 15px;
+  padding: 5px 15px;
+  border-radius: 15px;
+}
+
+@media screen and (min-width: 450px) {
+  .Header {
+    align-items: baseline;
   }
 
-  .Header__logged-in {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: flex-end;
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 1em;
+  .Header h1 {
+    font-size: 22pt;
   }
-  
-  .Header__not-logged-in a:last-child {
-    background: rgb(157, 121, 255);
-    color: white;
-    padding: 5px 15px;
-    border-radius: 15px;
-    margin-left: 10px;
+}
+
+@media screen and (max-width: 490px) {
+  .HeaderTaglineWide {
+    display: none;
   }
-  
-  .Header__logged-in a {
-    border: 1px solid rgb(157, 121, 255);
-    padding: 5px 15px;
-    border-radius: 15px;
+
+  .Header h1 {
+    font-size: 22pt;
+    margin: auto 0;
   }
-  
-  @media screen and (min-width: 450px) {
-    .Header {
-      align-items: baseline;
-    }
-  
-    .Header h1 {
-      font-size: 22pt;
-    }
+
+  .HeaderTaglineNarrow {
+    display: inherit;
   }
-  
-  @media screen and (max-width: 490px) {
-    .Header__tagline--wide {
-      display: none;
-    }
-  
-    .Header__tagline--narrow {
-      display: inherit;
-    }
-  }
-  
+}

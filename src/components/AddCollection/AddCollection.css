@@ -1,0 +1,45 @@
+input[type="text"] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 20px;
+  display: inline-block;
+  border: 1px solid black;
+  background: #f1f1f1;
+  font-size: 1em;
+}
+
+.CollectionTitle {
+  text-align: center;
+  font-size: 2em;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+.AddCollectionForm {
+  background: rgb(37, 37, 37);
+  width: 35%;
+  border-radius: 6px;
+  margin: 20px auto;
+  padding: 30px;
+  border: #a8a8a8 4px solid;
+  text-align: center;
+}
+
+.AddCollectionLabel {
+  font-size: 1em;
+}
+
+.CreateNewCollectionButton {
+  font-size: 1em;
+  background: rgb(157, 121, 255);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 15px;
+  border: none;
+}
+
+@media screen and (max-width: 490px) {
+  .AddCollectionForm {
+    width: 97%;
+  }
+}

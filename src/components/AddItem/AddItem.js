@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import config from "../../config";
 import TokenService from "../../services/token-service";
+import './AddItem.css';
 
 class AddItem extends Component {
   static defaultProps = {
@@ -40,16 +41,14 @@ class AddItem extends Component {
   };
 
   handleChangeItemYear = e => {
-    this.setState({ year_released: { value: Number(e.target.value), touched: true } });
+    this.setState({
+      year_released: { value: Number(e.target.value), touched: true }
+    });
   };
 
   handleChangeItemImage = e => {
     this.setState({ image_url: { value: e.target.value, touched: true } });
   };
-
-  /* handleChangeCollectionId = e => {
-    this.setState({ collection_id: { value: Number(e.target.value), touched: true } });
-  }; */
 
   handleSubmit = e => {
     e.preventDefault();
@@ -66,7 +65,7 @@ class AddItem extends Component {
       body: JSON.stringify(newItem),
       headers: {
         "content-type": "application/json",
-        'Authorization': `Bearer ${TokenService.getAuthToken()}`
+        Authorization: `Bearer ${TokenService.getAuthToken()}`
       }
     })
       .then(res => {
@@ -123,13 +122,11 @@ class AddItem extends Component {
   }
 
   render() {
-    const { collection_id } = this.props.location.state;
-    console.dir(collection_id);
     return (
-      <section className="AdditemForm">
+      <section className="AddItemForm">
         <form>
-          <h2>Add Item</h2>
-          <label htmlFor="additemtitle" className="add-item-label">
+          <h2>Add Item</h2>< br/>
+          <label htmlFor="additemtitle" className="AddItemLabel">
             Item Name
           </label>
           <input
@@ -142,8 +139,7 @@ class AddItem extends Component {
             <div className="error">{this.validateTitle()}</div>
           )}
           <br />
-          <br />
-          <label htmlFor="additemimage" className="add-item-label">
+          <label htmlFor="additemimage" className="AddItemLabel">
             Image URL
           </label>
           <input
@@ -152,12 +148,11 @@ class AddItem extends Component {
             name="additemimage"
             onChange={this.handleChangeItemImage}
           />
-          {this.state.title.touched && (
+          {this.state.image_url.touched && (
             <div className="error">{this.validateImage()}</div>
           )}
           <br />
-          <br />
-          <label htmlFor="additemyearreleased" className="add-item-label">
+          <label htmlFor="additemyearreleased" className="AddItemLabel">
             Year Released
           </label>
           <br />
@@ -170,7 +165,6 @@ class AddItem extends Component {
           {this.state.year_released.touched && (
             <div className="error">{this.validateYearReleased()}</div>
           )}
-          <br />
           <br />
           <label htmlFor="itemInfo">Info</label>
           <br />
@@ -192,9 +186,9 @@ class AddItem extends Component {
               this.validateYearReleased() ||
               this.validateInfo()
             }
-            className="button"
+            className="AddItemButton"
           >
-            Add Item
+            Create New Item
           </button>
         </form>
       </section>

@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import config from "../../config";
-import TokenService from '../../services/token-service';
+import TokenService from "../../services/token-service";
 
 export default class UpdateItem extends Component {
-
   state = {
-    item: '',
+    item: "",
     title: {
       value: this.props.location.state.item.title,
       touched: false
@@ -22,7 +21,7 @@ export default class UpdateItem extends Component {
       value: this.props.location.state.item.image_url,
       touched: false
     }
-  }
+  };
 
   handleUpdateItemTitle = e => {
     this.setState({ title: { value: e.target.value, touched: true } });
@@ -33,7 +32,9 @@ export default class UpdateItem extends Component {
   };
 
   handleUpdateItemYear = e => {
-    this.setState({ year_released: { value: Number(e.target.value), touched: true } });
+    this.setState({
+      year_released: { value: Number(e.target.value), touched: true }
+    });
   };
 
   handleUpdateItemImage = e => {
@@ -51,14 +52,14 @@ export default class UpdateItem extends Component {
     };
 
     const item_id = this.props.location.state.item.id;
-    console.log(item_id)
-    console.log(newUpdatedItem)
+    //console.log(item_id);
+    //console.log(newUpdatedItem);
     fetch(`${config.API_ENDPOINT}/items/${item_id}`, {
       method: "PATCH",
       body: JSON.stringify(newUpdatedItem),
       headers: {
         "content-type": "application/json",
-        'Authorization': `Bearer ${TokenService.getAuthToken()}`
+        Authorization: `Bearer ${TokenService.getAuthToken()}`
       }
     })
       .then(res => {
@@ -78,12 +79,12 @@ export default class UpdateItem extends Component {
   };
 
   render() {
-    console.log(this.props.location.state.item.title)
+    //console.log(this.props.location.state.item.title);
     return (
       <section className="EdititemForm">
         <form>
           <h2>Edit Item</h2>
-          <label htmlFor="edititemtitle" className="edit-item-label">
+          <label htmlFor="edititemtitle" className="EditItemLabel">
             Item Name
           </label>
           <input
@@ -95,7 +96,7 @@ export default class UpdateItem extends Component {
           />
           <br />
           <br />
-          <label htmlFor="edititemimage" className="edit-item-label">
+          <label htmlFor="edititemimage" className="EditItemLabel">
             Image URL
           </label>
           <input
@@ -107,7 +108,7 @@ export default class UpdateItem extends Component {
           />
           <br />
           <br />
-          <label htmlFor="edititemyearreleased" className="edit-item-label">
+          <label htmlFor="edititemyearreleased" className="EditItemLabel">
             Year Released
           </label>
           <br />
@@ -120,7 +121,9 @@ export default class UpdateItem extends Component {
           />
           <br />
           <br />
-          <label htmlFor="itemInfo">Info</label>
+          <label htmlFor="itemInfo" className="EditItemLabel">
+            Info
+          </label>
           <br />
           <textarea
             value={this.props.location.state.item.info}
